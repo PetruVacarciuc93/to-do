@@ -1,29 +1,33 @@
 const themeToggleBtn = document.getElementById('themeToggleBtn');
 
 function updateThemeIcon(theme) {
-  const icon = theme === 'dark' ? 'light_mode' : 'dark_mode';
-  themeToggleBtn.querySelector('.material-symbols-outlined').textContent = icon;
+  const iconMap = { light: 'dark_mode', dark: 'light_mode', pink: 'light_mode' };
+  themeToggleBtn.querySelector('.material-symbols-outlined').textContent = iconMap[theme] || 'light_mode';
 }
 
-// Load theme from localStorage or system
 function loadTheme() {
   const savedTheme = localStorage.getItem('theme');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const theme = savedTheme || (prefersDark ? 'dark' : 'light');
-  body.classList.remove('light', 'dark');
-  body.classList.add(theme);
+
+  document.body.classList.remove('light', 'dark', 'pink');
+  document.body.classList.add(theme);
   localStorage.setItem('theme', theme);
   updateThemeIcon(theme);
 }
 
-// Button click: toggle theme
+// Кнопка переключения тем: light → dark → pink → light
 themeToggleBtn.addEventListener('click', () => {
-  const newTheme = body.classList.contains('dark') ? 'light' : 'dark';
-  body.classList.remove('light', 'dark');
-  body.classList.add(newTheme);
+  let newTheme;
+  if (document.body.classList.contains('light')) newTheme = 'dark';
+  else if (document.body.classList.contains('dark')) newTheme = 'pink';
+  else newTheme = 'light';
+
+  document.body.classList.remove('light', 'dark', 'pink');
+  document.body.classList.add(newTheme);
   localStorage.setItem('theme', newTheme);
   updateThemeIcon(newTheme);
 });
 
-// Keep other functionality
+// Загружаем тему при старте
 loadTheme();

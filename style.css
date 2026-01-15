@@ -713,3 +713,34 @@ body.dark .category-card .form-group label {
   transition: color 0.2s ease-in-out;
 }
 
+:root {
+  --bg-color-light: #ffffff;
+  --text-color-light: #000000;
+
+  --bg-color-dark: #121212;
+  --text-color-dark: #ffffff;
+
+  /* Новые переменные для розовой темы */
+  --bg-color-pink: #ffe6f0;
+  --text-color-pink: #800040;
+}
+
+body.pink {
+  background-color: var(--bg-color-pink);
+  color: var(--text-color-pink);
+}
+
+/* Если есть элементы с переменными для фон/текст */
+body.pink input,
+body.pink select,
+body.pink textarea,
+body.pink button {
+  background-color: var(--bg-color-pink);
+  color: var(--text-color-pink);
+  border-color: #ff99cc;
+}
+
+body.pink .task-card {
+  background-color: #ffd9ec;
+  color: #800040;
+}
